@@ -6,6 +6,24 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Pagamentos {
+  id        String @id @default(uuid())
+  Nome      String
+  Descricao String
+  Valor     Int
+  Saldo     Saldos @relation(fields: [saldoId], references: [id])
+  saldoId   String
+}
+
+model Saldos {
+  id            String       @id @default(uuid())
+  Nome          String
+  Descricao     String
+  ValorInicial  Int
+  ValorRestante Int
+  Pagamentos    Pagamentos[]
 }

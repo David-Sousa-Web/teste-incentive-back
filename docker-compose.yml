@@ -5,8 +5,6 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: "teste-incentive"
-      MYSQL_USER: "user"
-      MYSQL_PASSWORD: "sJLgnpx4s4JOWn_kXggY4g"
       MYSQL_ROOT_PASSWORD: "qtc40zR5e9HdQXayLzbvBA"
     ports:
       - "3306:3306"
