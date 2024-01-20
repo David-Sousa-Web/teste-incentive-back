@@ -1,7 +1,8 @@
 import express from "express";
+import { env } from "./env";
 
 const main = async () => {
-  const port = 8000;
+  const port = env.PORT;
 
   const app = express();
   app.use(express.json());
