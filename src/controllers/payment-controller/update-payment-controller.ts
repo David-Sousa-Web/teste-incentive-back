@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { PrismaPaymentRepository } from "../../repositories/prisma/prisma-payment-repository";
-import { UpdatePaymentUseCase } from "../../use-cases/update-payments";
+import { UpdatePaymentUseCase } from "../../use-cases/payments-use-case/update-payments";
 import { z } from "zod";
 
 export async function UpdatePayment(req: Request, res: Response) {

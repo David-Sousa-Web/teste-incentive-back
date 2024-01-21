@@ -1,5 +1,5 @@
 import { Pagamentos } from "@prisma/client";
-import { PaymentsRepository } from "../repositories/payments-repository";
+import { PaymentsRepository } from "../../repositories/payments-repository";
 
 interface CreatePaymentUseCaseRequest {
   nome: string;

@@ -1,4 +1,4 @@
-import { PaymentsRepository } from "../repositories/payments-repository";
+import { PaymentsRepository } from "../../repositories/payments-repository";
 import { Pagamentos } from "@prisma/client"; // Certifique-se de importar o tipo correto aqui
 
 interface GetPaymentUseCaseResponse {
