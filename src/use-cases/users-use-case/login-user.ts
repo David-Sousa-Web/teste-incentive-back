@@ -2,6 +2,7 @@ import { UserRepository } from "../../repositories/user-repository";
 import jwt from "jsonwebtoken";
 import { UserInvalidEmailError } from "../errors/user-invalid-email";
 import { compare } from "bcryptjs";
+import { env } from "../../env";
 
 interface LoginUserUseCaseRequest {
   email: string;
@@ -24,11 +25,12 @@ export class LoginUserUseCase {
       throw new UserInvalidEmailError();
     }
 
-    const token = jwt.sign({ id: userEmail.id }, process.env.JWT_PASS ?? "", {
+    const token = jwt.sign({ id: userEmail.id }, env.JWT_PASS, {
       expiresIn: "8h",
     });
 
     return {
+      user: userEmail,
       token: token,
     };
   }
