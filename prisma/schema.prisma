@@ -12,18 +12,19 @@ datasource db {
 
 model Pagamentos {
   id        String @id @default(uuid())
-  Nome      String
-  Descricao String
-  Valor     Int
-  Saldo     Saldos @relation(fields: [saldoId], references: [id])
-  saldoId   String
+  nome      String
+  descricao String
+  valor     Int
+
+  saldos    Saldos @relation(fields: [saldos_Id], references: [id])
+  saldos_Id String
 }
 
 model Saldos {
   id            String       @id @default(uuid())
-  Nome          String
-  Descricao     String
-  ValorInicial  Int
-  ValorRestante Int
+  nome          String
+  descricao     String
+  valorInicial  Int
+  valorRestante Int
   Pagamentos    Pagamentos[]
 }
