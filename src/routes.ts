@@ -5,11 +5,14 @@ import { DeletePayment } from "./controllers/payment-controller/delete-payment-c
 import { UpdatePayment } from "./controllers/payment-controller/update-payment-controller";
 import { CreateUser } from "./controllers/user-controller/create-user-controller";
 import { LoginUser } from "./controllers/user-controller/login-user-controller";
+import { authMiddleware } from "./middlewares/authMiddleware";
 
 const routes = Router();
 
 routes.post("/user", CreateUser);
 routes.post("/login", LoginUser);
+
+routes.use(authMiddleware);
 
 routes.get("/payment", GetPayment);
 routes.post("/payment", CreatePayment);
