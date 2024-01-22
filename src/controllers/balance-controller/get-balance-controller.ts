@@ -9,7 +9,7 @@ export async function GetBalance(req: Request, res: Response) {
 
     const result = await balanceUseCase.execute();
 
-    res.status(200).json({ payments: result.balances });
+    res.status(200).json({ balance: result.balances });
   } catch (error) {
     console.log(error);
 
