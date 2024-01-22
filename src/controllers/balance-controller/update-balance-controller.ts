@@ -9,14 +9,14 @@ export async function UpdateBalance(req: Request, res: Response) {
   });
 
   const { nome } = balanceBodySchema.parse(req.body);
-  const balanceID = req.params.balanceID;
+  const balanceId = req.params.balanceId;
 
   try {
     const balanceRepository = new PrismaBalanceRepository();
     const balanceUseCase = new UpdateBalanceUseCase(balanceRepository);
 
     await balanceUseCase.execute({
-      balanceID,
+      balanceId,
       newName: nome,
     });
 

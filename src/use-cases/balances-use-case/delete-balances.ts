@@ -2,7 +2,7 @@ import { Saldos } from "@prisma/client";
 import { BalancesRepository } from "../../repositories/balance-repository";
 
 interface DeleteBalancesUseCaseRequest {
-  balancesID: string;
+  balanceId: string;
 }
 
 interface DeleteBalancesUseCaseResponse {
@@ -13,10 +13,10 @@ export class DeleteBalancesUseCase {
   constructor(private balancesRepository: BalancesRepository) {}
 
   async execute({
-    balancesID,
+    balanceId,
   }: DeleteBalancesUseCaseRequest): Promise<DeleteBalancesUseCaseResponse> {
     const BalancesDelete = await this.balancesRepository.deleteBalances(
-      balancesID
+      balanceId
     );
 
     return {
