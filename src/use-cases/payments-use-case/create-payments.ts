@@ -2,6 +2,7 @@ import { Pagamentos } from "@prisma/client";
 import { PaymentsRepository } from "../../repositories/payments-repository";
 import { BalancesRepository } from "../../repositories/balance-repository";
 import { WithoutBalanceError } from "../errors/without-balance";
+import { BalanceNotFoundError } from "../errors/balance-not-found";
 
 interface CreatePaymentUseCaseRequest {
   nome: string;
@@ -31,7 +32,7 @@ export class CreatePaymentUseCase {
     );
 
     if (!balanceValue) {
-      throw "balance not found";
+      throw new BalanceNotFoundError();
     }
 
     if (balanceValue.valorRestante < valor) {
@@ -44,6 +45,12 @@ export class CreatePaymentUseCase {
       valor,
       saldos_Id,
     });
+
+    const valueLessValueRemaining = balanceValue.valorRestante - valor;
+    await this.BalancesRepository.updateBalanceValue(
+      balanceValue.id,
+      valueLessValueRemaining
+    );
 
     return {
       payment,

@@ -6,4 +6,5 @@ export interface BalancesRepository {
   deleteBalances(balanceId: string): Promise<Saldos>;
   updateBalances(balanceId: string, newName: string): Promise<Saldos>;
   filterBalanceId(balanceId: string): Promise<Saldos | null>;
+  updateBalanceValue(balanceId: string, newValue: number): Promise<Saldos>;
 }

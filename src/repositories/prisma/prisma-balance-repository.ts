@@ -3,6 +3,18 @@ import { BalancesRepository } from "../balance-repository";
 import { prisma } from "../../lib/prisma";
 
 export class PrismaBalanceRepository implements BalancesRepository {
+  async updateBalanceValue(balanceId: string, newValue: number) {
+    const balance = await prisma.saldos.update({
+      where: {
+        id: balanceId,
+      },
+      data: {
+        valorRestante: newValue,
+      },
+    });
+
+    return balance;
+  }
   async filterBalanceId(balanceId: string) {
     const balance = await prisma.saldos.findUnique({
       where: {
