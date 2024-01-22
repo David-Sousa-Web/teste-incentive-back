@@ -8,11 +8,9 @@ export async function CreateBalance(req: Request, res: Response) {
     nome: z.string(),
     descricao: z.string(),
     valorInicial: z.number(),
-    valorRestante: z.number(),
   });
 
-  const { nome, descricao, valorInicial, valorRestante } =
-    balanceBodySchema.parse(req.body);
+  const { nome, descricao, valorInicial } = balanceBodySchema.parse(req.body);
 
   try {
     const balanceRepository = new PrismaBalanceRepository();
@@ -22,7 +20,7 @@ export async function CreateBalance(req: Request, res: Response) {
       nome,
       descricao,
       valorInicial,
-      valorRestante,
+      valorRestante: valorInicial,
     });
 
     res.status(201).json({ message: "Successfully created Balance" });

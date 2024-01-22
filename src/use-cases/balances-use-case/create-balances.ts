@@ -25,7 +25,7 @@ export class CreateBalanceUseCase {
       nome,
       descricao,
       valorInicial,
-      valorRestante,
+      valorRestante: valorInicial,
     });
 
     return {
