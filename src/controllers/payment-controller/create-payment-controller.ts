@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { PrismaPaymentRepository } from "../../repositories/prisma/prisma-payment-repository";
 import { CreatePaymentUseCase } from "../../use-cases/payments-use-case/create-payments";
 import { z } from "zod";
+import { PrismaBalanceRepository } from "../../repositories/prisma/prisma-balance-repository";
+import { WithoutBalanceError } from "../../use-cases/errors/without-balance";
 
 export async function CreatePayment(req: Request, res: Response) {
   const paymentBodySchema = z.object({
@@ -17,7 +19,11 @@ export async function CreatePayment(req: Request, res: Response) {
 
   try {
     const paymentRepository = new PrismaPaymentRepository();
-    const paymentUseCase = new CreatePaymentUseCase(paymentRepository);
+    const balanceRepository = new PrismaBalanceRepository();
+    const paymentUseCase = new CreatePaymentUseCase(
+      paymentRepository,
+      balanceRepository
+    );
 
     await paymentUseCase.execute({
       nome,
@@ -28,7 +34,11 @@ export async function CreatePayment(req: Request, res: Response) {
 
     res.status(201).json({ message: "Successfully created Payment" });
   } catch (error) {
-    console.log(error);
+    if (error instanceof WithoutBalanceError) {
+      return res.status(409).send({
+        message: error.message,
+      });
+    }
 
     res.status(500).json({ message: "Error while created Payments." });
   }
