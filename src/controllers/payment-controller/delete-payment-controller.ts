@@ -1,13 +1,18 @@
 import { Request, Response } from "express";
 import { PrismaPaymentRepository } from "../../repositories/prisma/prisma-payment-repository";
 import { DeletePaymentUseCase } from "../../use-cases/payments-use-case/delete-payments";
+import { PrismaBalanceRepository } from "../../repositories/prisma/prisma-balance-repository";
 
 export async function DeletePayment(req: Request, res: Response) {
   const paymentID = req.params.paymentID;
 
   try {
     const paymentRepository = new PrismaPaymentRepository();
-    const paymentUseCase = new DeletePaymentUseCase(paymentRepository);
+    const balanceRepository = new PrismaBalanceRepository();
+    const paymentUseCase = new DeletePaymentUseCase(
+      paymentRepository,
+      balanceRepository
+    );
 
     await paymentUseCase.execute({
       paymentID,

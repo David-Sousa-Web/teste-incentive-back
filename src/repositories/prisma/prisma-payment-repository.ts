@@ -3,6 +3,16 @@ import { PaymentsRepository } from "../payments-repository";
 import { prisma } from "../../lib/prisma";
 
 export class PrismaPaymentRepository implements PaymentsRepository {
+  async filterPaymentsId(paymentID: string) {
+    const payment = await prisma.pagamentos.findUnique({
+      where: {
+        id: paymentID,
+      },
+    });
+
+    return payment;
+  }
+
   async create(data: Prisma.PagamentosUncheckedCreateInput) {
     const payment = await prisma.pagamentos.create({
       data,
