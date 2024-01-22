@@ -9,6 +9,7 @@ import { authMiddleware } from "./middlewares/authMiddleware";
 import { GetBalance } from "./controllers/balance-controller/get-balance-controller";
 import { CreateBalance } from "./controllers/balance-controller/create-balance-controller";
 import { UpdateBalance } from "./controllers/balance-controller/update-balance-controller";
+import { DeleteBalances } from "./controllers/balance-controller/delete-balance-controller";
 
 const routes = Router();
 
@@ -24,7 +25,7 @@ routes.patch("/payment/:paymentID", UpdatePayment);
 
 routes.get("/balance", GetBalance);
 routes.post("/balance", CreateBalance);
-routes.delete("/balance/:balanceId", DeletePayment);
+routes.delete("/balance/:balanceId", DeleteBalances);
 routes.patch("/balance/:balanceId", UpdateBalance);
 
 export default routes;
