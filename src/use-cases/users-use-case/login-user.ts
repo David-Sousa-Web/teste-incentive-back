@@ -25,7 +25,7 @@ export class LoginUserUseCase {
       throw new UserInvalidEmailError();
     }
 
-    const token = jwt.sign({ id: userEmail.id }, env.JWT_PASS, {
+    const token = jwt.sign({ id: userEmail.id }, env.JWT_PASS ?? "", {
       expiresIn: "8h",
     });
 
